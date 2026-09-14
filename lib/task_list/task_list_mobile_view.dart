@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/task_tile.dart';
 
 class TaskListMobileView extends StatelessWidget {
   const TaskListMobileView({super.key});
@@ -81,7 +82,15 @@ class TaskListMobileView extends StatelessWidget {
           SizedBox(width: 20),
           Text('Overdue'),
         ],
-        )
+        ),
+        const SizedBox(height: 16),
+
+        //placing a tile widget 
+        //instance of tasktile
+        const TaskTile(
+          title: 'wrap up task management system',
+          dueDate: '2 October 2026',
+        ),
         ],
       ),
       ),
