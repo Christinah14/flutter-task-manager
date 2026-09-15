@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import '../../models/task.dart';
 
 //reused by the taskview
 //reusable widget
 class TaskTile extends StatelessWidget {
-  final String title;
-  final String dueDate;
+  //task object
+  final Task task;
 
   //constructor
-  const TaskTile({super.key, required this.title, required this.dueDate});
+  const TaskTile({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
     return Card(
+
       //styling the tile
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       margin: const EdgeInsets.only(bottom: 12),
@@ -26,7 +28,7 @@ class TaskTile extends StatelessWidget {
         //TODO remove the placeholders
         //how the task would look like
         title: Text(
-          title,
+          task.title,
           style: const TextStyle(fontWeight: FontWeight.w600),
         ),
 
@@ -38,7 +40,7 @@ class TaskTile extends StatelessWidget {
 
             const SizedBox(width: 6),
 
-            Text(dueDate),
+            Text('${task.dueDate.day}/${task.dueDate.month}/${task.dueDate.year}'),
             ],
             ),
         trailing: const Icon(Icons.more_vert),
