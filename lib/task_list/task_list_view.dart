@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_manager/repositories/task_repository.dart';
+import 'package:flutter_task_manager/services/task_api_service.dart';
 import 'package:flutter_task_manager/task_list/task_list_view_model.dart';
 
 import 'task_list_desktop_view.dart';
@@ -6,15 +8,21 @@ import 'task_list_mobile_view.dart';
 
 import 'package:provider/provider.dart';
 
-import 'task_list_desktop_view.dart';
+
 
 class TaskListView extends StatelessWidget {
   const TaskListView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    
     return ChangeNotifierProvider(
-      create: (_) => TaskListViewModel(),
+
+      create: (_) => TaskListViewModel(
+        repository: TaskRepository(apiService: TaskApiService(),
+      ),
+      )..loadTasks(),
+      
       child: Builder(
         builder: (context) {
 

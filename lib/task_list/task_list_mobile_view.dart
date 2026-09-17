@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'widgets/task_tile.dart';
 import '../models/task.dart';
+import 'widgets/empty_task_list.dart';
+import 'package:provider/provider.dart';
+import 'task_list_view_model.dart';
 
 class TaskListMobileView extends StatelessWidget {
   const TaskListMobileView({super.key});
 
   @override
+
   Widget build(BuildContext context) {
+
+    final viewModel = context.watch<TaskListViewModel>();
+
+    Widget taskContent;
+
+    //checks if there are tasks
+    if(viewModel.tasks.isEmpty){
+      taskContent = const EmptyTaskList();
+    } else {
+      taskContent = ListView.builder(itemCount: viewModel.tasks.length,
+      itemBuilder: (context, index){
+        return TaskTile(task: viewModel.tasks[index],);
+      },);
+    }
+
     return Scaffold(
       //off white background
       backgroundColor: const Color(0XFFF8F9FC),
@@ -88,12 +107,9 @@ class TaskListMobileView extends StatelessWidget {
 
         //placing a tile widget 
         //instance of tasktile
-        TaskTile(
-          task: Task(
-            title:'finish flutter project',
-            dueDate: DateTime(2026,10,2),
-            ),
-        ),
+        // TODO through the view
+
+        Expanded(child: taskContent,),
         ],
       ),
       ),

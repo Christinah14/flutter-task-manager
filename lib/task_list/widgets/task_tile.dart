@@ -40,7 +40,8 @@ class TaskTile extends StatelessWidget {
 
             const SizedBox(width: 6),
 
-            Text('${task.dueDate.day}/${task.dueDate.month}/${task.dueDate.year}'),
+            Text(task.dueDate != 
+            null ? '${task.dueDate!.day}/${task.dueDate!.month}/${task.dueDate!.year}': 'No due date',),
             ],
             ),
         trailing: const Icon(Icons.more_vert),

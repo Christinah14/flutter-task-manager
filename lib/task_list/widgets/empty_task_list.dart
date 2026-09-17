@@ -17,6 +17,7 @@ class EmptyTaskList extends StatelessWidget {
           Icon(Icons.task_alt, size: 64, color: Colors.grey),
 
           SizedBox(height: 16),
+          
           Text(
             'No task yet',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
@@ -24,7 +25,7 @@ class EmptyTaskList extends StatelessWidget {
 
           SizedBox(height: 8),
           Text(
-            'Add a text to get started',
+            'Add a task to get started',
             style: TextStyle(color: Colors.grey),
           ),
         ],
