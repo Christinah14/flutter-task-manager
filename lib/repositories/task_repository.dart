@@ -13,4 +13,13 @@ Future< List<Task>> getTasks() async{
   return await apiService.getTasks();
 }
 
+Future<void> deleteTask(int id) async{
+  await apiService.deleteTask(id
+  );
+}
+
+Future<void> updateTask(Task task) async {
+  await apiService.updateTask(task);
+}
+
 }

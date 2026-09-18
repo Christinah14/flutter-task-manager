@@ -25,6 +25,23 @@ class TaskApiService {
 
   //create a new task
   //update an existing task
+  Future<void> updateTask(Task task) async{
+    final url = '${ApiConfig.baseUrl}/api/Tasks/${task.id}';
+    await http.put(Uri.parse(url),
+    headers: {
+      'Content-Type' : 'application/json',
+    },
+    body:jsonEncode({
+      'id': task.id,
+    'title': task.title,
+    'description': task.description,
+    'iscompleted': task.isCompleted,
+    'priority': task.priority.index,
+    'dueDate': task.dueDate?.toIso8601String(),
+    'createdAt': task.createdAt.toIso8601String(),
+    }),
+    );
+  }
 
   //remove a task
   //delete by id
