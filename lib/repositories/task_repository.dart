@@ -22,4 +22,11 @@ Future<void> updateTask(Task task) async {
   await apiService.updateTask(task);
 }
 
+Future<void> createTask(String title,
+    String? description,
+    TaskPriority priority,
+  DateTime? dueDate) async{
+  await apiService.createTask(title, description, priority, dueDate);
+}
+
 }
