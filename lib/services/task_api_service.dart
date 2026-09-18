@@ -25,7 +25,17 @@ class TaskApiService {
 
   //create a new task
   //update an existing task
-  //remove a tats
+
+  //remove a task
+  //delete by id
+  Future<void> deleteTask(int id) async{
+    final url = '${ApiConfig.baseUrl}/api/Tasks/$id';
+    await http.delete(
+      Uri.parse(url),
+    );
+
+  }
+
 
 
 }
