@@ -10,12 +10,34 @@ final TaskRepository repository;
 TaskListViewModel({
   required this.repository,
 });
+
 //state data
 List<Task> tasks=[];
+bool isLoading = false;
+String? errorMessage;
 
-
+// TODO error handling
 Future<void> loadTasks() async{
+
+  isLoading = true;
+  notifyListeners();
+
   tasks = await repository.getTasks();
+  isLoading = false;
   notifyListeners();
 }
+
+Future<void> deleteTask(int id) async{
+  await repository.deleteTask(id);
+  //load the new tasks 
+  await loadTasks(); //updated tasks list
+}
+
+//user marks a task as active, complete
+Future<void> updateTask(Task task) async{
+  await repository.updateTask(task);
+  await loadTasks();
+}
+
+// TODO Additional features
 }
