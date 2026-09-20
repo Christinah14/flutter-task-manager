@@ -17,7 +17,12 @@ class TaskListMobileView extends StatelessWidget {
     Widget taskContent;
 
     //checks if there are tasks
-    if(viewModel.tasks.isEmpty){
+    if(viewModel.isLoading){
+      taskContent = const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    else if (viewModel.tasks.isEmpty){
       taskContent = const EmptyTaskList();
     } else {
       taskContent = ListView.builder(itemCount: viewModel.tasks.length,
@@ -28,11 +33,11 @@ class TaskListMobileView extends StatelessWidget {
 
     return Scaffold(
       //off white background
-      backgroundColor: const Color(0XFFF8F9FC),
+      backgroundColor: const Color(0xFFF8F9FC),
 
       //app bar design
       appBar: AppBar(
-        backgroundColor: const Color(0xFF2563EB),
+        backgroundColor: const Color(0xFF1C1C1C),
         foregroundColor: Colors.white,
         elevation: 0,
 
@@ -43,6 +48,7 @@ class TaskListMobileView extends StatelessWidget {
         //TODO still need to implement navigation
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
       ),
+
 
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -55,7 +61,7 @@ class TaskListMobileView extends StatelessWidget {
           style: TextStyle(
             fontSize: 23,
             fontWeight: FontWeight.bold,
-            color:Color(0xFF1E293B), //dark navy
+            color:Color(0xFF1C1C1C), //dark navy
           ),
           ),
 
@@ -76,7 +82,10 @@ class TaskListMobileView extends StatelessWidget {
           TextField(
             decoration: InputDecoration(
               hintText: 'Search tasks...',
-              prefixIcon: const Icon(Icons.search),
+              hintStyle: const TextStyle(
+                color: Color(0xFF6B7280),
+              ),
+              prefixIcon: const Icon(Icons.search, color: Color(0xFF1C1C1C)),
 
               filled: true,
               fillColor: Colors.white,
