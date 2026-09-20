@@ -18,9 +18,12 @@ class _TaskFormState extends State<TaskForm> {
       child: Column(
         children: [
           TextFormField(
+            //task title field
+            maxLength: 20,
             controller: titleController,
             decoration: const InputDecoration(labelText: 'Title'),
 
+            //validation check
             validator: (value){
               if(value == null || value.isEmpty){
                 return 'Please enter a title';
@@ -28,6 +31,19 @@ class _TaskFormState extends State<TaskForm> {
               return null;
             }
           ),
+          // task description title
+          TextFormField(
+            maxLength: 40,
+            controller: descriptionController,
+            decoration: const InputDecoration(labelText: 'Task description'),
+            //validation check
+            validator: (value){
+              if(value == null || value.isEmpty || value.length < 5){
+                return "Enter a description at least 5 chars long.";
+              }
+              return null;
+            }
+          )
         ],
       ),
     );
