@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_manager/models/task.dart';
 
 class TaskForm extends StatefulWidget {
   const TaskForm({super.key});
@@ -11,6 +12,7 @@ class _TaskFormState extends State<TaskForm> {
   //keeps track and manages user input
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+  TaskPriority selectedPriority = TaskPriority.medium;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,28 @@ class _TaskFormState extends State<TaskForm> {
               }
               return null;
             }
-          )
+          ),
+
+          //priority
+          // drop down values are for the enum
+          DropdownButtonFormField<TaskPriority>(
+            initialValue: selectedPriority,
+            items: TaskPriority.values.map((priority){
+              return DropdownMenuItem<TaskPriority>(value: priority,
+              child: Text(priority.name),);
+
+            }).toList(),
+            onChanged: (value){
+              if(value !=null){
+                setState((){
+                  selectedPriority = value;
+                });
+              }
+            },
+          ),
+
+          //dueDate 
+
         ],
       ),
     );
