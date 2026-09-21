@@ -6,15 +6,22 @@ class TaskDetailsMobileView extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    // TODO: UI
     return Scaffold(
+        backgroundColor: const Color(0xFFF8F9FC),
+
       appBar: AppBar(
-        title: const Text('Create Task'),
+        backgroundColor: const Color(0xFF1C1C1C),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        title: const Text('Create Task',
+        style: TextStyle(fontWeight: FontWeight.bold),),
+
       ),
 
       body: const Padding(
         padding: EdgeInsets.all(20),
-        
+      
         //calls the task form
         child: TaskForm(),
       )
