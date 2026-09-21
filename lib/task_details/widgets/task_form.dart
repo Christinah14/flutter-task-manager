@@ -19,9 +19,14 @@ class _TaskFormState extends State<TaskForm> {
   //optional due date
   //method takes time
   //opens the calander and saves user picked date
-  Future<void> pickDueDate() async{
-    final pickedDate = await showDatePicker(context: context, firstDate: DateTime.now() , lastDate: DateTime(2028), initialDate: DateTime.now(),);
-    if(pickedDate!= null){
+  Future<void> pickDueDate() async {
+    final pickedDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2028),
+      initialDate: DateTime.now(),
+    );
+    if (pickedDate != null) {
       setState(() {
         selectedDueDate = pickedDate;
       });
@@ -38,15 +43,31 @@ class _TaskFormState extends State<TaskForm> {
             //task title field
             maxLength: 20,
             controller: titleController,
-            decoration: const InputDecoration(labelText: 'Title'),
+            decoration: InputDecoration(
+              labelText: 'Title',
+              hintText: 'Enter task title',
+              filled: true,
+              fillColor: Colors.white,
 
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+
+              // Focus border
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(18),
+                borderSide: const BorderSide(color: Color(0xFFFF7A00)),
+              ),
+
+
+            ),
             //validation check
-            validator: (value){
-              if(value == null || value.isEmpty){
+            validator: (value) {
+              if (value == null || value.isEmpty) {
                 return 'Please enter a title';
               }
               return null;
-            }
+            },
           ),
 
           const SizedBox(height: 20),
@@ -55,14 +76,33 @@ class _TaskFormState extends State<TaskForm> {
           TextFormField(
             maxLength: 40,
             controller: descriptionController,
-            decoration: const InputDecoration(labelText: 'Task description'),
+            decoration: InputDecoration(
+              labelText: 'Task description',
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 40,
+              ),
+
+              // Boaders
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+
+              // Focus border
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(18),
+                borderSide: const BorderSide(color: Color(0xFFFF7A00)),
+              ),
+            ),
             //validation check
-            validator: (value){
-              if(value == null || value.isEmpty || value.length < 5){
+            validator: (value) {
+              if (value == null || value.isEmpty || value.length < 5) {
                 return "Enter a description at least 5 chars long.";
               }
               return null;
-            }
+            },
           ),
           const SizedBox(height: 20),
 
@@ -70,14 +110,37 @@ class _TaskFormState extends State<TaskForm> {
           // drop down values are for the enum
           DropdownButtonFormField<TaskPriority>(
             initialValue: selectedPriority,
-            items: TaskPriority.values.map((priority){
-              return DropdownMenuItem<TaskPriority>(value: priority,
-              child: Text(priority.name),);
 
+            //Decoration
+            decoration: InputDecoration(
+              labelText: 'Priority',
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 18,
+              ),
+
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+
+              // Focus border
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(18),
+                borderSide: const BorderSide(color: Color(0xFFFF7A00), width: 2),
+              ),
+            ),
+
+            items: TaskPriority.values.map((priority) {
+              return DropdownMenuItem<TaskPriority>(
+                value: priority,
+                child: Text(priority.name),
+              );
             }).toList(),
-            onChanged: (value){
-              if(value !=null){
-                setState((){
+            onChanged: (value) {
+              if (value != null) {
+                setState(() {
                   selectedPriority = value;
                 });
               }
@@ -87,8 +150,25 @@ class _TaskFormState extends State<TaskForm> {
           const SizedBox(height: 20),
 
           //dueDate widget
-          DueDateField(selectedDueDate: selectedDueDate, onTap: pickDueDate)
+          DueDateField(selectedDueDate: selectedDueDate, onTap: pickDueDate),
 
+          const SizedBox(height: 50),
+
+          SizedBox(
+            width: double.infinity,
+            child:
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFFF7A00),
+              foregroundColor: Colors.white,
+            ),
+            onPressed: (){
+              // TODO create task logic
+            },
+            child: const Text('Create Task')
+
+          ),
+          ),
         ],
       ),
     );
