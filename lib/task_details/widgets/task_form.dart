@@ -35,11 +35,13 @@ class _TaskFormState extends State<TaskForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return Form(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
+
             //task title field
             maxLength: 20,
             controller: titleController,
@@ -58,8 +60,6 @@ class _TaskFormState extends State<TaskForm> {
                 borderRadius: BorderRadius.circular(18),
                 borderSide: const BorderSide(color: Color(0xFFFF7A00)),
               ),
-
-
             ),
             //validation check
             validator: (value) {
@@ -75,6 +75,7 @@ class _TaskFormState extends State<TaskForm> {
           // task description title
           TextFormField(
             maxLength: 40,
+            // keeps track of the description input
             controller: descriptionController,
             decoration: InputDecoration(
               labelText: 'Task description',
@@ -96,6 +97,8 @@ class _TaskFormState extends State<TaskForm> {
                 borderSide: const BorderSide(color: Color(0xFFFF7A00)),
               ),
             ),
+
+
             //validation check
             validator: (value) {
               if (value == null || value.isEmpty || value.length < 5) {
@@ -128,7 +131,10 @@ class _TaskFormState extends State<TaskForm> {
               // Focus border
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(18),
-                borderSide: const BorderSide(color: Color(0xFFFF7A00), width: 2),
+                borderSide: const BorderSide(
+                  color: Color(0xFFFF7A00),
+                  width: 2,
+                ),
               ),
             ),
 
@@ -156,18 +162,31 @@ class _TaskFormState extends State<TaskForm> {
 
           SizedBox(
             width: double.infinity,
-            child:
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFF7A00),
-              foregroundColor: Colors.white,
-            ),
-            onPressed: (){
-              // TODO create task logic
-            },
-            child: const Text('Create Task')
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFFF7A00),
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                // TODO create task logic
+                void add(){
+                final title = titleController;
+                final description = descriptionController;
+                final dueDate = selectedDueDate;
+                final priority = selectedPriority;
 
-          ),
+                final task = Task(
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  isCompleted: false,
+                  dueDate: selectedDueDate,
+                  priority: selectedPriority,
+
+                );
+                };
+              },
+              child: const Text('Create Task'),
+            ),
           ),
         ],
       ),

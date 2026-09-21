@@ -24,7 +24,9 @@ class TaskApiService {
   }
 
   //create a new task
-  Future<void> createTask(String title,
+  Future<void> createTask(
+    //the backend provides the task id and createdAt
+    String title,
     String? description,
     TaskPriority priority,
     DateTime? dueDate) async {
@@ -57,7 +59,7 @@ class TaskApiService {
     'iscompleted': task.isCompleted,
     'priority': task.priority.index,
     'dueDate': task.dueDate?.toIso8601String(),
-    'createdAt': task.createdAt.toIso8601String(),
+    'createdAt': task.createdAt?.toIso8601String(),
     }),
     );
   }
@@ -69,9 +71,5 @@ class TaskApiService {
     await http.delete(
       Uri.parse(url),
     );
-
   }
-
-
-
 }

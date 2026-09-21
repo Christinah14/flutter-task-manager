@@ -2,22 +2,23 @@
 enum TaskPriority { low, medium, high }
 
 class Task {
-  final int id;
+  final int? id;
   final String title;
   final String? description;
   final bool isCompleted;
   final DateTime? dueDate;
-  final DateTime createdAt;
+  final DateTime? createdAt;
   final TaskPriority priority;
 
   Task({
-    required this.id,
+    this.id,
     required this.title,
     this.description,
-    required this.dueDate,
     //by default
     this.isCompleted = false,
-    required this.createdAt,
+    required this.dueDate,
+    //by default
+    this.createdAt,
     required this.priority,
   });
 
