@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_manager/task_details/task_details_mobile_view.dart';
 import 'package:flutter_task_manager/task_list/task_list_view.dart';
+import 'task_details/widgets/task_form.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const TaskListView(),
+      home: TaskDetailsMobileView()
     ); 
   }
 }
