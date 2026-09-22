@@ -10,6 +10,7 @@ import 'package:flutter_task_manager/task_list/task_list_view_model.dart';
 
 void main() {
   runApp(
+    //state management
     ChangeNotifierProvider(
     create: (_) => TaskListViewModel(
       repository: TaskRepository(apiService: TaskApiService(),

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'widgets/task_tile.dart';
-import '../models/task.dart';
 import 'widgets/empty_task_list.dart';
 
 import 'package:provider/provider.dart';
 
 import 'task_list_view_model.dart';
-import 'task_list_desktop_view.dart';
 import 'package:flutter_task_manager/task_details/task_details_mobile_view.dart';
 
 class TaskListMobileView extends StatelessWidget {
