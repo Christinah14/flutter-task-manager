@@ -7,6 +7,7 @@ import 'dart:convert';
 import '../models/task.dart';
 
 class TaskApiService {
+
   //getTasks
   Future<List<Task>> getTasks() async {
     final url = '${ApiConfig.baseUrl}/api/Tasks';
@@ -25,7 +26,11 @@ class TaskApiService {
     }).toList();
 
     return tasks;}
+    else{
+      throw Exception('Faild to lad tasks');
+    }
   }
+
 
   //get task by id
   Future<Task> getTaskById(int id) async {
