@@ -48,7 +48,7 @@ class TaskApiService {
   }
 
   //create a new task
-  Future<void> createTask(
+  Future<Task> createTask(
     //the backend provides the task id and createdAt
     String title,
     String? description,
@@ -57,9 +57,11 @@ class TaskApiService {
   ) async {
     final url = '${ApiConfig.baseUrl}/api/Tasks';
 
-    await http.post(
+    final response = await http.post(
       Uri.parse(url),
+      //info regarding the format of the data
       headers: {'Content-Type': 'application/json'},
+      //encodes the dart data into json forma
       body: jsonEncode({
         'title': title,
         'description': description,
@@ -68,6 +70,11 @@ class TaskApiService {
         'dueDate': dueDate?.toIso8601String(),
       }),
     );
+    if(response.statusCode == 201){
+      final data = jsonDecode(response.body);
+      return Task.fromJson(data);
+
+    } throw Exception('Failed to create a task');
   }
 
   //update an existing task
