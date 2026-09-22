@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task_manager/models/task.dart';
+import 'package:flutter_task_manager/services/task_api_service.dart';
 import 'package:flutter_task_manager/task_details/widgets/due_date_field.dart';
+import 'package:flutter_task_manager/task_list/task_list_view_model.dart';
+import 'package:provider/provider.dart';
 
 class TaskForm extends StatefulWidget {
   const TaskForm({super.key});
@@ -15,6 +18,11 @@ class _TaskFormState extends State<TaskForm> {
   final descriptionController = TextEditingController();
   TaskPriority selectedPriority = TaskPriority.medium;
   DateTime? selectedDueDate;
+
+
+  //instance of taskapi
+  //enables access of api service method
+  final taskApiService = TaskApiService();
 
   //optional due date
   //method takes time
@@ -167,23 +175,16 @@ class _TaskFormState extends State<TaskForm> {
                 backgroundColor: const Color(0xFFFF7A00),
                 foregroundColor: Colors.white,
               ),
-              onPressed: () {
-                // TODO create task logic
-                void add(){
-                final title = titleController;
-                final description = descriptionController;
-                final dueDate = selectedDueDate;
-                final priority = selectedPriority;
-
-                final task = Task(
-                  title: titleController.text,
-                  description: descriptionController.text,
-                  isCompleted: false,
-                  dueDate: selectedDueDate,
-                  priority: selectedPriority,
-
+              onPressed: () async {
+                // TODO create task logi
+                await context.read<TaskListViewModel>().createTask(
+                  titleController.text,
+                  descriptionController.text,
+                  selectedPriority,
+                  selectedDueDate
                 );
-                };
+                if (!mounted) return;
+                Navigator.pop(context);
               },
               child: const Text('Create Task'),
             ),

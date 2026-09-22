@@ -15,17 +15,6 @@ class TaskListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    return ChangeNotifierProvider(
-
-      create: (_) => TaskListViewModel(
-        repository: TaskRepository(apiService: TaskApiService(),
-      ),
-      )..loadTasks(),
-      
-      child: Builder(
-        builder: (context) {
-
           //check the screen width (desktop/mobile)
           final screenwidth = MediaQuery.of(context).size.width;
           if (screenwidth < 800) {
@@ -33,8 +22,7 @@ class TaskListView extends StatelessWidget {
           }
 
           return const TaskListDesktopView();
-        },
-      ),
-    );
+        }
+  
+    
   }
-}

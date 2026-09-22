@@ -39,5 +39,20 @@ Future<void> updateTask(Task task) async{
   await loadTasks();
 }
 
+Future<void> createTask(
+  String title,
+  String ? description,
+  TaskPriority priority,
+  DateTime? dueDate,
+) async{
+  // repository creates the task
+
+  await repository.createTask(title, description, priority, dueDate);
+  
+  //fetchs the latest list into the view
+  //the UI updates
+  await loadTasks();
+}
+
 // TODO Additional features
 }
