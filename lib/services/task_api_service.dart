@@ -78,10 +78,12 @@ class TaskApiService {
   }
 
   //update an existing task
-  Future<void> updateTask(Task task) async {
+  Future<Task> updateTask(Task task) async {
+
     final url = '${ApiConfig.baseUrl}/api/Tasks/${task.id}';
-    await http.put(
+    final response = await http.put(
       Uri.parse(url),
+
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'id': task.id,
@@ -93,12 +95,21 @@ class TaskApiService {
         'createdAt': task.createdAt?.toIso8601String(),
       }),
     );
+    if(response.statusCode == 200){
+      final data = jsonDecode(response.body);
+      return Task.fromJson(data);
+    }
+    throw Exception('failed to update task');
   }
 
   //remove a task
   //delete by id
   Future<void> deleteTask(int id) async {
     final url = '${ApiConfig.baseUrl}/api/Tasks/$id';
-    await http.delete(Uri.parse(url));
+    final response = await http.delete(Uri.parse(url));
+    
+    if(response.statusCode != 200 && response.statusCode != 204){
+      throw Exception('Failed to delete');
+    }
   }
 }
