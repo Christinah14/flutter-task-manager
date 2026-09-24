@@ -25,6 +25,8 @@ class TaskTile extends StatelessWidget {
           Icons.radio_button_unchecked,
           color: Color(0xFFFF7A00),
         ),
+        //checked when someone delete
+        
         //TODO remove the placeholders
         //how the task would look like
         title: Text(

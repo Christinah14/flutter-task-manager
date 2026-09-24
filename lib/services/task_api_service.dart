@@ -76,6 +76,7 @@ class TaskApiService {
 
     } throw Exception('Failed to create a task');
   }
+  
 
   //update an existing task
   Future<Task> updateTask(Task task) async {
