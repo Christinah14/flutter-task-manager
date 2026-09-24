@@ -76,10 +76,10 @@ class TaskApiService {
 
     } throw Exception('Failed to create a task');
   }
-  
+
 
   //update an existing task
-  Future<Task> updateTask(Task task) async {
+  Future<void> updateTask(Task task) async {
 
     final url = '${ApiConfig.baseUrl}/api/Tasks/${task.id}';
     final response = await http.put(
@@ -96,10 +96,10 @@ class TaskApiService {
         'createdAt': task.createdAt?.toIso8601String(),
       }),
     );
-    if(response.statusCode == 200){
-      final data = jsonDecode(response.body);
-      return Task.fromJson(data);
+    if(response.statusCode == 204){
+      return ;
     }
+
     throw Exception('failed to update task');
   }
 

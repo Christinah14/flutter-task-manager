@@ -43,10 +43,35 @@ Future<void> deleteTask(int id) async{
 
 //user marks a task as active, complete
 Future<void> updateTask(Task task) async{
-  await repository.updateTask(task);
+
+  Task updatedTask;
+  
+  if(task.isCompleted == false){
+    updatedTask = Task(
+      id : task.id,
+      title: task.title,
+      description: task.description,
+      isCompleted: true,
+      priority: task.priority,
+      dueDate: task.dueDate,
+      createdAt: task.createdAt,
+    );
+    }else {
+      updatedTask = Task(
+      id : task.id,
+      title: task.title,
+      description: task.description,
+      isCompleted: false,
+      priority: task.priority,
+      dueDate: task.dueDate,
+      createdAt: task.createdAt,
+    );
+    }
+    await repository.updateTask(updatedTask);
   //load the new task
-  await loadTasks();
-}
+    await loadTasks();
+    }
+
 
 // create a task
 Future<void> createTask(
@@ -56,7 +81,6 @@ Future<void> createTask(
   DateTime? dueDate,
 ) async{
   // repository creates the task
-
   await repository.createTask(title, description, priority, dueDate);
   
   //fetchs the latest list into the view
@@ -64,6 +88,6 @@ Future<void> createTask(
   //load the new task
   await loadTasks();
 }
+}
 
 // TODO Additional features
-}

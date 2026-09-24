@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_manager/task_list/task_list_view_model.dart';
 import '../../models/task.dart';
+import 'package:provider/provider.dart';
 
 //reused by the taskview
 //reusable widget
@@ -12,6 +14,7 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Card(
 
       //styling the tile
@@ -21,12 +24,22 @@ class TaskTile extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
 
-        leading: const Icon(
-          Icons.radio_button_unchecked,
+
+
+        leading: IconButton(
+          onPressed: () async {
+            await context.read<TaskListViewModel>().updateTask(task);
+            },
+          icon:
+           Icon(
+            task.isCompleted
+            ? Icons.radio_button_checked
+            : Icons.radio_button_unchecked,
           color: Color(0xFFFF7A00),
         ),
+        ),
         //checked when someone delete
-        
+
         //TODO remove the placeholders
         //how the task would look like
         title: Text(
@@ -46,8 +59,14 @@ class TaskTile extends StatelessWidget {
             null ? '${task.dueDate!.day}/${task.dueDate!.month}/${task.dueDate!.year}': 'No due date',),
             ],
             ),
-        trailing: const Icon(Icons.more_vert),
+        trailing: IconButton(icon:const Icon(Icons.delete, color: Colors.red),
+         onPressed: () async{
+          //verifies if the task is a not a null can delete the task
+          if(task.id != null)
+            {await context.read<TaskListViewModel>().deleteTask(task.id!);}
+         },)
+        
       ),
-    );
+      );
   }
 }
