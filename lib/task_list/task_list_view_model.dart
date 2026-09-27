@@ -3,6 +3,13 @@ import '../models/task.dart';
 import '../repositories/task_repository.dart';
 
 
+enum TaskFilter{
+  all,
+  active,
+  completed,
+  overdue,
+}
+
 //notfies the ui when there are changes
 class TaskListViewModel extends ChangeNotifier{
 final TaskRepository repository;
@@ -17,6 +24,7 @@ TaskListViewModel({
 List<Task> tasks=[];
 bool isLoading = false;
 String? errorMessage;
+TaskFilter selectedFilter = TaskFilter.all;
 
 // TODO error handling
 // TODO add notfier listeners
@@ -33,6 +41,29 @@ Future<void> loadTasks() async{
 Future<void> loadTask(int id)async {
   task = await repository.getTaskById(id);
   notifyListeners();
+}
+
+void setFilter(TaskFilter filter){
+  selectedFilter = filter;
+  notifyListeners();
+}
+
+List<Task> get filteredTasks {
+  switch(selectedFilter){
+    case TaskFilter.all:
+    return tasks;
+
+    case TaskFilter.active:
+    return tasks.where((task) => !task.isCompleted).toList();
+
+    case TaskFilter.completed:
+    return tasks.where((task) => task.isCompleted).toList();
+
+    case TaskFilter.overdue:
+    return tasks.where((task){
+      return task.dueDate != null && task.dueDate!.isBefore(DateTime.now()) && !task.isCompleted;}
+      ).toList();
+    }
 }
 
 Future<void> deleteTask(int id) async{

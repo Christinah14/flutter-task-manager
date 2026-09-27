@@ -24,9 +24,9 @@ class TaskListMobileView extends StatelessWidget {
       taskContent = const EmptyTaskList();
     } else {
       taskContent = ListView.builder(
-        itemCount: viewModel.tasks.length,
+        itemCount: viewModel.filteredTasks.length,
         itemBuilder: (context, index) {
-          return TaskTile(task: viewModel.tasks[index]);
+          return TaskTile(task: viewModel.filteredTasks[index]);
         },
       );
     }
@@ -107,16 +107,40 @@ class TaskListMobileView extends StatelessWidget {
             ),
 
             const SizedBox(height: 16),
+
+
             //filters
-            const Row(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('All'),
-                SizedBox(width: 20),
-                Text('Active'),
-                SizedBox(width: 20),
-                Text('completed'),
-                SizedBox(width: 20),
-                Text('Overdue'),
+                GestureDetector(onTap: () {
+                  context.read<TaskListViewModel>()
+                  .setFilter(TaskFilter.all);
+                },
+                child: const Text('All')
+                ),
+
+                GestureDetector(onTap: () {
+                  context.read<TaskListViewModel>()
+                  .setFilter(TaskFilter.active);
+                },
+                child: const Text('Active')
+                ),
+
+               GestureDetector(onTap: () {
+                  context.read<TaskListViewModel>()
+                  .setFilter(TaskFilter.completed);
+                },
+                child: const Text('Completed')
+                ),
+
+                GestureDetector(onTap: () {
+                  context.read<TaskListViewModel>()
+                  .setFilter(TaskFilter.overdue);
+                },
+                child: const Text('Overdue'),
+
+                ),
               ],
             ),
             const SizedBox(height: 16),
